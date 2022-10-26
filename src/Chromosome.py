@@ -1,7 +1,5 @@
 import random
 
-from Home import Home
-
 class Chromosome:
 
     def __init__(self, houses_list, warehouse_locations_list):
@@ -14,6 +12,7 @@ class Chromosome:
                                     for x in range(num_trucks)]
         # the last truck may have a shorter route, make sure it's last house to visit it's still in bounds
         self.truck_routes[-1][1] = len(houses_list)-1
+        self.fitness_value = self.fitness()
 
 
     def mutate(self):
@@ -51,6 +50,7 @@ class Chromosome:
         # return the 2 new chromosomes (after verifying both are valid)
         new_child_chromosomes = [Chromosome(new_path_1, self.truck_warehouse_indices), \
                             Chromosome(new_path_2, self.truck_warehouse_indices)]
+
         for new_chrom in new_child_chromosomes:
             if not self.is_valid_path(new_chrom.path_order):
                 raise Exception("Crossover path is not valid!: \n" + str(new_chrom))
@@ -76,29 +76,13 @@ class Chromosome:
                 distance += home_i.distance_to(home_j.xy_index)
             # last home back to warehouse
             distance += self.path_order[end].distance_to(warehouse_idx)
-        return distance
+        # less distance is better, multiply by 1000 to avoid losing precision
+        return (1000/distance)
             
 
 
     def __str__(self):
-        return self.path_order.__str__()
+        return "Chromosome with fitness: " + str(self.fitness())
 
-
-
-if __name__=="__main__":
-    x_list = [Home([random.randint(0,100), random.randint(0,100)], x) for x in range(11)]
-    y_list = x_list.copy()
-    random.shuffle(y_list)
-
-    warehouse_locations = [[random.randint(0,100), random.randint(0,100)] for x in range(1)]
-
-    x = Chromosome(x_list, warehouse_locations)
-    y = Chromosome(y_list, warehouse_locations)
-
-    z = x.crossover(y)
-    print(x.fitness())
-    print(y.fitness())
-    print(z[0].fitness())
-    print(z[1].fitness())
-
-    #print(x.mutate())
+    def __repr__(self):
+        return "Chromosome with fitness: " + str(self.fitness())
