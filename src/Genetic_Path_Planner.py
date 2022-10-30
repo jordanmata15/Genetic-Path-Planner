@@ -1,3 +1,4 @@
+from enum import Enum
 from typing import List
 import numpy.random as npr
 import os

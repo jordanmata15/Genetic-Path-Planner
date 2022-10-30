@@ -1,0 +1,14 @@
+
+*.pyc
+data/data_70_pct.csv
+data/data_50_pct.csv
+data/data_30_pct.csv
+data/data_10_pct.csv
+data/data_100_pct.csv
+data/data_0_pct.csv
+data/70_pct.png
+data/50_pct.png
+data/30_pct.png
+data/10_pct.png
+data/100_pct.png
+data/0_pct.png
