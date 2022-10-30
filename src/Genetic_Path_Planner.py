@@ -33,7 +33,6 @@ class Genetic_Path_Planner:
 
     PACKAGE_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..")
     DATA_DIR = os.path.join(PACKAGE_DIR, "data")
-    LOG_FILE = os.path.join(DATA_DIR, "data.csv")
 
     def __init__(self,
                 num_chromosomes=10,
@@ -57,7 +56,10 @@ class Genetic_Path_Planner:
             new_chromosomes = self.generate_crossover_mutation_chromosomes()
             self.chromosomes = self.selection(new_chromosomes)
             self.record_data()
-        self.data_df.to_csv(self.LOG_FILE)
+        file_pct = str(int(self.crossover_probability*100))
+        log_filename = os.path.join(self.DATA_DIR, "data_"+file_pct+"_pct.csv")
+        print(log_filename)
+        self.data_df.to_csv(log_filename)
 
 
     
@@ -188,9 +190,9 @@ class Genetic_Path_Planner:
 if __name__=="__main__":
 
     genetic_planner = Genetic_Path_Planner(num_chromosomes=10,
-                                    crossover_probability=0.7,
-                                    max_generations=1000,
-                                    #num_homes=45,
-                                    #warehouse_indices_list=[[10,5],[25,30]]
-                                    )
+                                            crossover_probability=0.95,
+                                            max_generations=1000,
+                                            #num_homes=45,
+                                            #warehouse_indices_list=[[10,5],[25,30]]
+                                            )
     genetic_planner.run_genetic_algorithm()
