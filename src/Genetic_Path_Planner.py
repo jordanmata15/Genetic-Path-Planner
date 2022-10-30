@@ -57,7 +57,6 @@ class Genetic_Path_Planner:
             self.record_data()
         file_pct = str(int(self.crossover_probability*100))
         log_filename = os.path.join(self.DATA_DIR, "data_"+file_pct+"_pct.csv")
-        print(log_filename)
         self.data_df.to_csv(log_filename)
 
 
