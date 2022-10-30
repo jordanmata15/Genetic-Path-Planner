@@ -1,3 +1,6 @@
+from __future__ import annotations
+from typing import List
+
 import math
 
 class Home:
@@ -7,18 +10,30 @@ class Home:
         self.home_index = home_index
 
 
-    def distance_to(self, index):
+    def distance_to(self, index: List[int, int]):
+        """Calculates the Euclidean distance from this house to 
+        another pair of indices.
+
+        Args:
+            index (List[int, int]): The index to calculate the distance to.
+
+        Returns:
+            float: The distance from the calling home to another index.
+        """
         x_delta = self.xy_index[0] - index[0]
         y_delta = self.xy_index[1] - index[1]
         return math.sqrt(x_delta**2 + y_delta**2)
+        
 
-    def __str__(self):
-        return "<" + self.home_index.__str__() + " @ " + "(" + str(self.xy_index[0]) + "," + str(self.xy_index[1]) + ")>"
+    def __eq__(self, other: Home) -> bool:
+        """Determines if two homes are equal. Used for validating chromosomes.
 
-    def __repr__(self):
-        return self.home_index.__str__()
+        Args:
+            other (Home): Home to compare to.
 
-    def __eq__(self, other):
+        Returns:
+            bool: True if the calling home is equal to the passed in home.
+        """
         if self.home_index == other.home_index and self.xy_index == other.xy_index:
             return True
         else:
