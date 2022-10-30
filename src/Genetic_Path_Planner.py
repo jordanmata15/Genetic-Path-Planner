@@ -23,7 +23,7 @@ class Genetic_Operator(Enum):
         """
         if isinstance(other, int):
             return self.value == other
-        if isinstance(other, PaymentStatus):
+        if isinstance(other, Genetic_Operator):
             return self is other
         return False
 
