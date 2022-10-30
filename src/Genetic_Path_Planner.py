@@ -1,4 +1,3 @@
-from enum import Enum
 from typing import List
 import numpy.random as npr
 import os
@@ -7,7 +6,6 @@ import random
 
 from Chromosome import Chromosome
 from Home       import Home
-
 
 class Genetic_Operator(Enum):
     CROSSOVER = 0
